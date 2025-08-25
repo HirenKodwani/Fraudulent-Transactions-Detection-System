@@ -31,47 +31,32 @@ isFraud: 1 if transaction is fraudulent, 0 otherwise
 
 isFlaggedFraud: Flagged by business rule (e.g., transfers > 200,000)
 
-🛠️ Approach & Methodology
-
-Data Cleaning
-
-Handled missing values, irrelevant IDs, and outliers
-
-Checked for multicollinearity across features
-
-Exploratory Data Analysis (EDA)
-
-Distribution of transaction types
-
-Fraud percentage across categories
-
-Balance dynamics of fraudulent vs. non-fraudulent transactions
-
-Feature Engineering
-
-Created transaction-based ratio features (balance changes, relative amounts)
-
-Selected important predictors using correlation and feature importance
-
-Model Development
-
-Implemented and compared models: Logistic Regression, Random Forest, Gradient Boosting
-
-Chosen model: XGBoost / Random Forest for performance balance
-
-Model Evaluation
-
-Metrics used: Precision, Recall, F1-score, ROC-AUC
-
-Focused on recall (catching fraud cases) while maintaining acceptable precision
-
-Key Insights
-
-Fraud is concentrated in TRANSFER and CASH-OUT transactions
-
-Large balance drops with no balance change in destination accounts are strong indicators
-
-Business flagging misses small but frequent fraudulent attempts
+Project Workflow & Key Findings
+The Jupyter Notebook follows a structured approach to solve the problem:
+1. Data Cleaning & Exploratory Data Analysis (EDA)
+Missing Values: The dataset was found to be clean with no missing values.
+Class Imbalance: The data is highly imbalanced, with fraudulent transactions accounting for only 0.13% of the total. This was a critical consideration for model training and evaluation.
+Key Insight: A crucial discovery from the EDA was that fraudulent transactions only occur in TRANSFER and CASH_OUT types. This allowed us to significantly reduce the dataset size and focus the model on relevant data, improving both efficiency and performance.
+2. Feature Engineering & Variable Selection
+Feature Creation: New features like errorBalanceOrg were created to capture discrepancies in account balances, which proved to be highly predictive.
+Feature Selection: High-cardinality and irrelevant columns (nameOrig, nameDest) were dropped. The dataset was filtered to only include TRANSFER and CASH_OUT transactions based on the EDA findings. The type column was one-hot encoded.
+3. Model Development
+Model Choice: An XGBoost Classifier was selected for its high performance on tabular data and its ability to handle class imbalance effectively using the scale_pos_weight parameter.
+Data Preparation: The data was split into training (80%) and testing (20%) sets, and numerical features were standardized using StandardScaler.
+4. Model Performance & Evaluation
+The model demonstrated outstanding performance in identifying fraudulent transactions:
+AUC-ROC Score: 0.9997 - Indicating an almost perfect ability to distinguish between classes.
+Precision (Fraud): 0.97 - When the model predicts fraud, it is correct 97% of the time.
+Recall (Fraud): 0.86 - The model successfully identified 86% of all actual fraudulent transactions in the test set.
+The Confusion Matrix and ROC Curve further validate the model's excellent predictive power.
+5. Key Factors Predicting Fraud
+The model's feature importance analysis revealed the top predictors of fraud:
+oldbalanceOrg: The sender's balance before the transaction.
+errorBalanceOrg: The engineered feature capturing balance discrepancies.
+amount: The transaction amount.
+step: The time unit of the transaction.
+type_TRANSFER: Whether the transaction is a fund transfer.
+These factors logically align with fraudulent behavior, where an account is taken over and its entire balance is quickly transferred out.
 
 ✅ Results
 
