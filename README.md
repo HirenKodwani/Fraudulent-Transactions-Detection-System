@@ -2,7 +2,7 @@
 
 📌 Project Overview
 
-This project was developed as part of an internship task to detect fraudulent transactions in a financial dataset. The dataset contains over 6.3 million transactions across different types such as CASH-IN, CASH-OUT, DEBIT, PAYMENT, and TRANSFER. The goal was to build a machine learning model capable of identifying fraudulent behavior and provide actionable insights for prevention strategies.
+This project was developedto detect fraudulent transactions in a financial dataset. The dataset contains over 6.3 million transactions across different types such as CASH-IN, CASH-OUT, DEBIT, PAYMENT, and TRANSFER. The goal was to build a machine learning model capable of identifying fraudulent behavior and provide actionable insights for prevention strategies.
 
 📂 Dataset Details
 
